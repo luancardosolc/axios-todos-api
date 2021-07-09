@@ -1,12 +1,17 @@
 function getTodos() {
-  console.log('Get Request')
+  axios({
+    method: 'get',
+    url: 'https://jsonplaceholder.typicode.com/todos'
+  })
+    .then(res => console.log(res))
+    .catch(err => console.error(err)) 
 }
 
 function addTodo() {
   console.log('addTodo Request')
 }
 
-function updateTodo() {
+function updateTodo() { 
   console.log('updateTodo Request')
 }
 
