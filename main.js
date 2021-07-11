@@ -108,22 +108,18 @@ function getData() {
   //   axios.get('https://jsonplaceholder.typicode.com/posts?_limit=5'),
   // ])
   //   .then(res => {
-  //     console.log(res[0])
   //     showOutput(res[0])
-  //     console.log(res[1])
   //     showOutput(res[1], 'resTwo')
   //   })
   //   .catch(err => console.error(err))
 
-  //-- With spread inside .then 
+  //-- With spread inside .then naming each response
   axios.all([
     axios.get('https://jsonplaceholder.typicode.com/todos?_limit=5'),
     axios.get('https://jsonplaceholder.typicode.com/posts?_limit=5'),
   ])
     .then(axios.spread((todos, posts) => {
-      console.log(todos)
       showOutput(todos)
-      console.log(posts)
       showOutput(posts, 'resTwo')
     }))
     .catch(err => console.error(err))
@@ -144,6 +140,17 @@ function errorHandling() {
 function cancelToken() {
   console.log('cancelToken Request')
 }
+
+//Intercepting requests and responses
+axios
+  .interceptors
+  .request
+  .use(config => {
+    console.log(`${config.method.toUpperCase()} request sent to ${config.url} at ${new Date().getTime()}`)
+    return config
+  }, error => {
+    return Promise.reject(error)
+  })
 
 //Formatting output in browser
 function showOutput(res, element = 'res') {
