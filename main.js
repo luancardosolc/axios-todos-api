@@ -100,8 +100,19 @@ function removeTodo() {
     .catch(err => console.error(err)) 
 }
 
+//Get simultaneous data
 function getData() {
-  console.log('getData Request')
+  axios.all([
+    axios.get('https://jsonplaceholder.typicode.com/todos?_limit=5'),
+    axios.get('https://jsonplaceholder.typicode.com/posts?_limit=5'),
+  ])
+    .then(res => {
+      console.log(res[0])
+      showOutput(res[0])
+      console.log(res[1])
+      showOutput(res[1], 'resTwo')
+    })
+    .catch(err => console.error(err))
 }
 
 function customHeaders() {
@@ -121,8 +132,8 @@ function cancelToken() {
 }
 
 //Formatting output in browser
-function showOutput(res) {
-  document.getElementById('res').innerHTML = `
+function showOutput(res, element = 'res') {
+  document.getElementById(element).innerHTML = `
   <div class="card card-body mb-4">
     <h5>Status: ${res.status}</h5>
   </div>
