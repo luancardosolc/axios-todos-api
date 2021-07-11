@@ -40,7 +40,7 @@ function addTodo() {
     .catch(err => console.error(err)) 
 }
 
-function updateTodo() { 
+function putTodo() { 
   //--Long way
   // axios({
   //   method: 'put',
@@ -58,6 +58,28 @@ function updateTodo() {
     .put('https://jsonplaceholder.typicode.com/todos/1', {
       title: 'Updated Todo',
       completed: true,
+    })
+    .then(res => showOutput(res))
+    .catch(err => console.error(err)) 
+}
+
+function patchTodo() { 
+  //--Long way
+  // axios({
+  //   method: 'patch',
+  //   url: 'https://jsonplaceholder.typicode.com/todos/1',
+  //   data: {
+  //     title: 'Updated Todo',
+  //     completed: true,
+  //   }
+  // })
+  //   .then(res => showOutput(res))
+  //   .catch(err => console.error(err)) 
+
+  //--Short way
+  axios
+    .patch('https://jsonplaceholder.typicode.com/todos/1', {
+      title: 'Updated Todo'
     })
     .then(res => showOutput(res))
     .catch(err => console.error(err)) 
@@ -123,7 +145,8 @@ function showOutput(res) {
 // Event listeners
 document.getElementById('get').addEventListener('click', getTodos);
 document.getElementById('post').addEventListener('click', addTodo);
-document.getElementById('update').addEventListener('click', updateTodo);
+document.getElementById('put').addEventListener('click', putTodo);
+document.getElementById('patch').addEventListener('click', patchTodo);
 document.getElementById('delete').addEventListener('click', removeTodo);
 document.getElementById('sim').addEventListener('click', getData);
 document.getElementById('headers').addEventListener('click', customHeaders);
