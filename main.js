@@ -102,16 +102,30 @@ function removeTodo() {
 
 //Get simultaneous data
 function getData() {
+  //-- With simple .then 
+  // axios.all([
+  //   axios.get('https://jsonplaceholder.typicode.com/todos?_limit=5'),
+  //   axios.get('https://jsonplaceholder.typicode.com/posts?_limit=5'),
+  // ])
+  //   .then(res => {
+  //     console.log(res[0])
+  //     showOutput(res[0])
+  //     console.log(res[1])
+  //     showOutput(res[1], 'resTwo')
+  //   })
+  //   .catch(err => console.error(err))
+
+  //-- With spread inside .then 
   axios.all([
     axios.get('https://jsonplaceholder.typicode.com/todos?_limit=5'),
     axios.get('https://jsonplaceholder.typicode.com/posts?_limit=5'),
   ])
-    .then(res => {
-      console.log(res[0])
-      showOutput(res[0])
-      console.log(res[1])
-      showOutput(res[1], 'resTwo')
-    })
+    .then(axios.spread((todos, posts) => {
+      console.log(todos)
+      showOutput(todos)
+      console.log(posts)
+      showOutput(posts, 'resTwo')
+    }))
     .catch(err => console.error(err))
 }
 
