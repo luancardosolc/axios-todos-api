@@ -41,7 +41,26 @@ function addTodo() {
 }
 
 function updateTodo() { 
-  console.log('updateTodo Request')
+  //--Long way
+  // axios({
+  //   method: 'put',
+  //   url: 'https://jsonplaceholder.typicode.com/todos/1',
+  //   data: {
+  //     title: 'Updated Todo',
+  //     completed: true,
+  //   }
+  // })
+  //   .then(res => showOutput(res))
+  //   .catch(err => console.error(err)) 
+
+  //--Short way
+  axios
+    .put('https://jsonplaceholder.typicode.com/todos/1', {
+      title: 'Updated Todo',
+      completed: true,
+    })
+    .then(res => showOutput(res))
+    .catch(err => console.error(err)) 
 }
 
 function removeTodo() {
