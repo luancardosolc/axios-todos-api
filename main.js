@@ -1,4 +1,5 @@
 function getTodos() {
+  //--Long way
   // axios({
   //   method: 'get',
   //   url: 'https://jsonplaceholder.typicode.com/todos',
@@ -9,13 +10,34 @@ function getTodos() {
   //   .then(res => showOutput(res))
   //   .catch(err => console.error(err)) 
 
-  axios.get('https://jsonplaceholder.typicode.com/todos?_limit=5')
+  //--Short way
+  axios
+    .get('https://jsonplaceholder.typicode.com/todos?_limit=5')
     .then(res => showOutput(res))
     .catch(err => console.error(err)) 
 }
 
 function addTodo() {
-  console.log('addTodo Request')
+  //--Long way
+  // axios({
+  //   method: 'post',
+  //   url: 'https://jsonplaceholder.typicode.com/todos',
+  //   data: {
+  //     title: 'New Todo',
+  //     completed: true,
+  //   }
+  // })
+  //   .then(res => showOutput(res))
+  //   .catch(err => console.error(err)) 
+
+  //--Short way
+  axios
+    .post('https://jsonplaceholder.typicode.com/todos', {
+      title: 'New Todo',
+      completed: true,
+    })
+    .then(res => showOutput(res))
+    .catch(err => console.error(err)) 
 }
 
 function updateTodo() { 
