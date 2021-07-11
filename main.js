@@ -69,8 +69,7 @@ function patchTodo() {
   //   method: 'patch',
   //   url: 'https://jsonplaceholder.typicode.com/todos/1',
   //   data: {
-  //     title: 'Updated Todo',
-  //     completed: true,
+  //     title: 'Updated Todo'
   //   }
   // })
   //   .then(res => showOutput(res))
@@ -86,7 +85,19 @@ function patchTodo() {
 }
 
 function removeTodo() {
-  console.log('removeTodo Request')
+  //--Long way
+  // axios({
+  //   method: 'delete',
+  //   url: 'https://jsonplaceholder.typicode.com/todos/1'
+  // })
+  //   .then(res => showOutput(res))
+  //   .catch(err => console.error(err)) 
+
+  //--Short way
+  axios
+    .delete('https://jsonplaceholder.typicode.com/todos/1')
+    .then(res => showOutput(res))
+    .catch(err => console.error(err)) 
 }
 
 function getData() {
