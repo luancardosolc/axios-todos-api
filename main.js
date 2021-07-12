@@ -183,13 +183,23 @@ function errorHandling() {
   //-- Long way
   // axios({
   //   method: 'get',
-  //   url: 'https://jsonplaceholder.typicode.com/todos',
+  //   url: 'https://jsonplaceholder.typicode.com/todoss',
   //   params: {
   //     _limit: 5
   //   }
   // })
   //   .then(res => showOutput(res))
-  //   .catch(err => console.error(err)) 
+  //   .catch(err => {
+  //     if (err.response) {
+  //       // Status different from 200 range
+  //       showOutput({
+  //         data: err.response.data,
+  //         status: err.response.status,
+  //         headers: err.response.headers,
+  //         config: {}
+  //       })
+  //     }
+  //   })
 
   //-- Short way
   axios
@@ -209,7 +219,23 @@ function errorHandling() {
 }
 
 function cancelToken() {
-  console.log('cancelToken Request')
+  const canceled = true
+  const source = axios.CancelToken.source()
+
+  axios
+    .get('https://jsonplaceholder.typicode.com/todos?_limit=5', {
+      cancelToken: source.token
+    })
+    .then(res => showOutput(res))
+    .catch(thrown => {
+      if(axios.isCancel(thrown)) {
+        console.log('Request canceled: ', thrown.message);
+      }
+    }) 
+
+  if(canceled) {
+    source.cancel('Message saying why the request was canceled')
+  }
 }
 
 //Intercepting requests and responses
