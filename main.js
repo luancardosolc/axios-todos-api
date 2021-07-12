@@ -160,7 +160,20 @@ function customHeaders() {
 }
 
 function transformResponse() {
-  console.log('transformResponse Request')
+  const options = {
+    method: 'post',
+    url: 'https://jsonplaceholder.typicode.com/todos',
+    data: {
+      title: 'New Todo',
+      completed: true,
+    },
+    transformResponse: axios.defaults.transformResponse.concat(data => {
+      data.title = data.title.toUpperCase()
+      return data
+    })
+  }
+
+  axios(options).then(res => showOutput(res))
 }
 
 function errorHandling() {
