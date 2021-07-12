@@ -238,6 +238,13 @@ function cancelToken() {
   }
 }
 
+//Making requests using an AXIOS INSTANCE
+const axiosInstance = axios.create({
+  baseURL: 'https://jsonplaceholder.typicode.com'
+})
+
+axiosInstance.get('/comments?_limit=5').then(res => showOutput(res))
+
 //Intercepting requests and responses
 axios
   .interceptors
