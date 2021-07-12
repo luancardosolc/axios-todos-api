@@ -126,7 +126,37 @@ function getData() {
 }
 
 function customHeaders() {
-  console.log('customHeaders Request')
+  //-- Long way
+  axios({
+    method: 'post',
+    url: 'https://jsonplaceholder.typicode.com/todos',
+    data: {
+      title: 'New Todo',
+      completed: true,
+    },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'sometoken'
+    }
+  })
+    .then(res => showOutput(res))
+    .catch(err => console.error(err)) 
+
+  //--Short way
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'sometoken'
+    }
+  }
+  
+  axios
+    .post('https://jsonplaceholder.typicode.com/todos', {
+      title: 'New Todo',
+      completed: true,
+    }, config)
+    .then(res => showOutput(res))
+    .catch(err => console.error(err)) 
 }
 
 function transformResponse() {
