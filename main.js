@@ -180,7 +180,32 @@ function transformResponse() {
 }
 
 function errorHandling() {
-  console.log('errorHandling Request')
+  //-- Long way
+  // axios({
+  //   method: 'get',
+  //   url: 'https://jsonplaceholder.typicode.com/todos',
+  //   params: {
+  //     _limit: 5
+  //   }
+  // })
+  //   .then(res => showOutput(res))
+  //   .catch(err => console.error(err)) 
+
+  //-- Short way
+  axios
+    .get('https://jsonplaceholder.typicode.com/todosS?_limit=5')
+    .then(res => showOutput(res))
+    .catch(err => {
+      if (err.response) {
+        // Status different from 200 range
+        showOutput({
+          data: err.response.data,
+          status: err.response.status,
+          headers: err.response.headers,
+          config: {}
+        })
+      }
+    }) 
 }
 
 function cancelToken() {
